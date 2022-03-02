@@ -1,12 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./assets/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="./assets/css/index.css">
+    <script src="./assets/lib/layui/layui.js"></script>
+    <script src="./assets/lib/jquery.js"></script>
+    <script src="//d3js.org/d3.v5.min.js"></script>
+    <script src="https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"></script>
+    <script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js"></script>
 </head>
+
 <body>
+    <div class="layui-header">
+        <ul class="layui-nav" lay-filter="">
+            <li class="layui-nav-item">
+                <a href="javascript:;">目录</a>
+                <dl class="layui-nav-child">
+                    <!-- 二级菜单 -->
+                    <dd><a href="">第一张图</a></dd>
+                    <dd><a href="">第二张图</a></dd>
+                    <dd><a href="">第三张图</a></dd>
+                    <dd><a href="">第四张图</a></dd>
+                    <dd><a href="">第五张图</a></dd>
+                    <dd><a href="">第六张图</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="">社区</a></li>
+        </ul>
+    </div>
+    <div class="my-left" id="graph" >
+
+        <script>
+            // graphviz.width('100px');
+            d3.select("#graph").graphviz()
+                .renderDot('digraph  {a -> b;a -> c;b -> f;c ->f;f ->e;a->e;f -> g;a -> g;b -> g;c -> g;a -> h;b -> h;f -> h;g -> h;c -> h;e -> h}');
+            d3.select("#graph").graphviz().width('900px').height('90vh').fit(true);
+
+        </script>
+
+    </div>
+    <div class="my-right">
+
+    </div>
+
     
+    <script src="./assets/js/index.js"></script>
 </body>
+
 </html>
