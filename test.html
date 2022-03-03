@@ -1,14 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://unpkg.com/viz.js@1.8.1/viz.js" type="javascript/worker"></script>
+Join Observable to explore and create live, interactive data visualizations.
+Popular / AboutMagnus Jacobsson’s Block 28a70231e2c9dddb84b3b20f450a215f
+Updated July 27, 2021
+d3-graphviz demo application showing association of SVG elements with DOT source elements
 
-</head>
+Open
+Open the console to see detalied info about what's going on
+
+index.html#
+<!DOCTYPE html>
+<meta charset="utf-8">
+
 <body>
-    
-</body>
-</html>
+    <script src="//d3js.org/d3.v5.min.js"></script>
+    <script src="https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"></script>
+    <script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js"></script>
+    <div id="graph" style="text-align: center;"></div>
+    <script>
+
+
+        var dotSrc = `
+digraph {
+    graph [label="Click on a node or an edge to delete it" labelloc="t", fontsize="20.0" tooltip=" "]
+    node [style="filled"]
+    Node1 [id="NodeId1" label="N1" fillcolor="#d62728"]
+    Node2 [id="NodeId2" label="N2" fillcolor="#1f77b4"]
+    Node3 [id="NodeId3" label="N3" fillcolor="#2ca02c"]
+    Node4 [id="NodeId4" label="N4" fillcolor="#ff7f0e"]
+    Node1 -> Node2 [id="EdgeId12" label="E12"]
+    Node1 -> Node3 [id="EdgeId131" label="E13"]
+    Node2 -> Node3 [id="EdgeId23" label="E23"]
+    Node3 -> Node4 [id="EdgeId34" label="E34"]
+}
+`;
+        var dotSrcLines;
+        // label只是决定页面显示内容，不影响实际title
+        var graphviz = d3.select("#graph").graphviz();
+
+        function render() {
+            console.log('DOT source =', dotSrc);
+            dotSrcLines = dotSrc.split('\n');
+
+            graphviz
+                .transition(function () {
+                    return d3.transition()
+                        .delay(100)
+                        .duration(1000);
+                })
+                .renderDot(dotSrc)
+                .on("end", interactive);
+        }
+
+        function interactive() {
+            console.log(dotSrcLines);
+            nodes = d3.selectAll('.node,.edge');
+            nodes
+                .on("click", function () {
+                    var title = d3.select(this).selectAll('title').text().trim();
+                    var text = d3.select(this).selectAll('text').text();
+                    var id = d3.select(this).attr('id');
+                    //返回id的属性值（id是svg的一个属性）
+                    var class1 = d3.select(this).attr('class');
+                    dotElement = title.replace('->', ' -> ');
+                    // 这是针对path部分的，也可以叫edge，title命名规则是a->b，需加空格
+                    console.log('Element id="%s" class="%s" title="%s" text="%s" dotElement="%s"', id, class1, title, text, dotElement);
+                    console.log('Finding and deleting references to %s "%s" from the DOT source', class1, dotElement);
+                    for (i = 0; i < dotSrcLines.length;) {
+                        if (dotSrcLines[i].indexOf(dotElement) >= 0) {
+                            // 判断每个元素里是否有title（寻找针对的数组元素）<0为无结果，正常返回具体位置
+                            console.log('Deleting line %d: %s', i, dotSrcLines[i]);
+                            dotSrcLines.splice(i, 1);
+                            // 把这个元素删除
+                        } else {
+                            i++;
+                        }
+                    }
+                    dotSrc = dotSrcLines.join('\n');
+                    render();
+                });
+        }
+
+        render(dotSrc);
+
+    </script>
+    LICENSE#
+    This block appears to have no license. Please contact the author to request a license.

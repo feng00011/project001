@@ -12,6 +12,7 @@
     /* background-color: aqua; */
     overflow: scroll;
     position: relative;
+    cursor: pointer;
 }
 .my-right{
     fixwidth:true;
