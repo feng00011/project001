@@ -20,7 +20,7 @@
     height: 90vh;
     float: right;
     /* border-right: 2px solid black; */
-    background-color: cadetblue;
+    /* background-color: cadetblue; */
     overflow: scroll;
     position: relative;
 }

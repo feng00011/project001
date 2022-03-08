@@ -20,7 +20,7 @@ $(function () {
 function parserMod() {
     var dotSrc = `
 digraph {
-    graph [label="Click on a node or an edge to delete it" labelloc="t", fontsize="20.0" tooltip=" "]
+    graph [label="Click on a node or an edge" labelloc="t", fontsize="20.0" tooltip=" "]
     Node1 [id="NodeId1" label="N1" my1=1]
     Node2 [id="NodeId2" label="N2" ]
     Node3 [id="NodeId3" label="N3" ]
