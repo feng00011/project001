@@ -1,0 +1,5 @@
+prior,next,id,label
+Node1,Node2,EdgeId12,E12
+Node1,Node3,EdgeId13,E13
+Node2,Node3,EdgeId23,E23
+Node3,Node4,EdgeId34,E34

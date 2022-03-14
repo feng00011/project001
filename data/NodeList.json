@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "nodeName": "Node1",
+        "nodeId": "NodeId1",
+        "label": "N101"
+    },
+    {
+        "id": 2,
+        "nodeName": "Node2",
+        "nodeId": "NodeId2",
+        "label": "N2"
+    },
+    {
+        "id": 3,
+        "nodeName": "Node3",
+        "nodeId": "NodeId3",
+        "label": "N3"
+    },
+    {
+        "id": 4,
+        "nodeName": "Node4",
+        "nodeId": "NodeId4",
+        "label": "N4"
+    },
+    {
+        "id": 5,
+        "nodeName": "Node5",
+        "nodeId": "NodeId5",
+        "label": "N511"
+    },
+    {
+        "id": 7,
+        "nodeName": "Node7",
+        "nodeId": "NodeId7",
+        "label": "N323"
+    },
+    {
+        "id": 8,
+        "nodeName": "Node8",
+        "nodeId": "NodeId8",
+        "label": "N32"
+    }
+]

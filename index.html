@@ -8,7 +8,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="./assets/lib/layui/css/layui.css">
     <link rel="stylesheet" href="./assets/css/index.css">
-    
+
 </head>
 
 <body>
@@ -32,32 +32,190 @@
     <div class="my-left" id="graph">
 
     </div>
-    
+    <!-- 右边显示栏开始 -->
     <div class="my-right" id="myRight">
         <div class="layui-tab">
+            <!-- 表头开始 -->
             <ul class="layui-tab-title">
-              <li class="layui-this" style="width: 150px;">SEARCH</li>
-              <li style="width: 150px;">PARSER STATES</li>
-              <li style="width: 150px;">TCAM SELECTOR</li>   
+                <li class="layui-this" style="width: 135px;">SEARCH</li>
+                <li style="width: 135px;">PARSER STATES</li>
+                <li style="width: 135px;">EDIT</li>
+                <li style="width: 135px;">ADD</li>
+
             </ul>
+            <!-- 表头结束 -->
             <div class="layui-tab-content">
-              <div class="layui-tab-item layui-show">内容1</div>
-              <div class="layui-tab-item">内容2</div>
-              <div class="layui-tab-item">内容3</div>
+                <div class="layui-tab-item layui-show">
+                    内容1
+                </div>
+                <!-- 第二部分显示部分开始 -->
+                <div class="layui-tab-item">
+                    <!-- 默认显示部分 -->
+                    <div id="normalPart">请点击图片元素以显示内容</div>
+                    <!-- 选中节点时显示的部分 -->
+                    <div class="NodePart" style="display:none">
+                        <div class="layui-card">
+                            <div class="layui-card-header">当前节点</div>
+                            <div class="layui-card-body">
+                                <label for="">节点名称：</label>
+                                <label for="" class="thisNodeName">2222</label>
+                            </div>
+                        </div>
+                        <table class="layui-table">
+                            <colgroup>
+                                <col width="150">
+                                <col width="150">
+                                <col>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>prior-node</th>
+                                    <th>next-node</th>
+                                </tr>
+                            </thead>
+                            <tbody id="NodelistRight">
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- 选中路径时显示的部分 -->
+                    <div class="EdgePart" style="display:none">
+                        <div class="layui-card">
+                            <div class="layui-card-header">当前路径</div>
+                            <div class="layui-card-body">
+                                <label for="">路径名称：</label>
+                                <label for="" class="thisEdgeName"></label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- 第二部分显示部分结束 -->
+
+                <!-- 第三部分edit开始 -->
+                <div class="layui-tab-item">
+                    <!-- 显示头 -->
+                    <div class="layui-card">
+                        <div class="layui-card-header">您正在编辑：</div>
+                        <div class="layui-card-body">
+                            <p class=" NodePart" style="display:none"><span>节点名称：</span><span for=""
+                                    class="thisNodeName">2222</span> </p>
+                            <p class="EdgePart" style="display:none"><span>路径名称：</span><span for=""
+                                    class="thisEdgeName"></span></p>
+                        </div>
+                    </div>
+                    <!-- 显示头结束 -->
+                    <!-- 修改开始 -->
+                    <div id="editBigBox" >
+                        <form class="layui-form" action="" id="editNameForm">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">重命名</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="editName" id="editName" required lay-verify="required"
+                                        placeholder="点击节点可以修改名称" autocomplete="off" class="layui-input">
+                                    <input type="text" name="thisEditClass" id="thisEditClass" style="display: none;" value="">
+                                    <input type="text" name="thisEditOldId" class="thisEditOldId" style="display: none;" value="">
+
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" lay-filter="formDemo" type="submit">立即提交</button>
+                                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                </div>
+                            </div>
+                        </form>
+                        <form class="layui-form" action="" id="editEdgeForm">
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label">路径</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="thisEditOldId" class="thisEditOldId" style="display: none;" value="">
+                                    <textarea name="editEdge" required lay-verify="required" id="editEdge"
+                                        placeholder="输入格式：以;为每组路径的分隔符，前后节点之间用->分割，标注(如：JackA->RoseB;Seven->Ace),如果只想输入新节点，此处勿填写"
+                                        class="layui-textarea"></textarea>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" lay-filter="formDemo" type="submit">立即提交</button>
+                                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                </div>
+                            </div>
+                        </form>
+
+
+                        <hr class="layui-border-green" style="margin-bottom: 25px;">
+                        <!-- 删除开始 -->
+                        <div style="position:relative" class="layui-card">
+                            <form action="" id="delbutton">
+                                <input type="text" id="delButtonId" value=0 name="delName" style="display: none;">
+                                <button type="submit" class="layui-btn"
+                                    style="margin-left: 50%;position:absolute;left:-70px" ;">删除该节点/路径</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- 删除部分结束 -->
+                </div>
+                <!-- 第三部分edit结束-->
+
+                <!-- 第四部分add开始 -->
+                <div class="layui-tab-item">
+                    <!-- 显示头 -->
+                    <div class="layui-card">
+                        <div class="layui-card-header">您正在添加节点：</div>
+                        <div class="layui-card-body">
+
+                        </div>
+                    </div>
+                    <!-- 显示头结束 -->
+                    <!-- 修改开始 -->
+                    <div>
+                        <form class="layui-form" action="" id="addNodeForm">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">节点名</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="nodeAddNodeName" required lay-verify="required"
+                                        placeholder="如只想输入新的路径关系，此处勿填写" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" lay-filter="formDemo" type="submit">立即提交</button>
+                                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                </div>
+                            </div>
+                        </form>
+                        <form class="layui-form" action="" id="addEdgeForm">
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label">路径</label>
+                                <div class="layui-input-block">
+                                    <textarea name="nodeAddNodeEdge" required lay-verify="required"
+                                        placeholder="输入格式：以;为每组路径的分隔符，前后节点之间用->分割，标注(如：JackA->RoseB;Seven->Ace),如果只想输入新节点，此处勿填写"
+                                        class="layui-textarea"></textarea>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" lay-filter="formDemo" type="submit">立即提交</button>
+                                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+                <!-- 第四部分add结束-->
+
             </div>
-          </div>
-
-    </div>
-    
 
 
-    <script src="./assets/lib/jquery.js"></script>
-    <script src="./assets/lib/layui/layui.js"></script>
-    <script src="//d3js.org/d3.v5.min.js"></script>
-    <script src="https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"></script>
-    <script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js"></script>
+        </div>
+        <script src="./assets/lib/jquery.js"></script>
+        <script src="./assets/lib/layui/layui.js"></script>
+        <script src="//d3js.org/d3.v5.min.js"></script>
+        <script src="https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"></script>
+        <script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js"></script>
 
-    <script src="./assets/js/index.js"></script>
+        <script src="./assets/js/index.js"></script>
 </body>
 
 </html>

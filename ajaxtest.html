@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./assets/lib/jquery.js"></script>
+</head>
+
+<body>
+    <script>
+        var arrList = new Array();
+        $.get('http://127.0.0.1/api/nodedata', function (res) {
+
+            let tmp = JSON.parse(res);
+            console.log(tmp);
+            setdot(tmp, 1)
+            $.get('http://127.0.0.1/api/edgedata', function (res2) {
+                // console.log(JSON.parse(JSON.stringify(res)));
+                // console.log(res);
+                let tmp = JSON.parse(res2);
+                setdot(tmp, 2)
+                arrList.unshift('digraph {')
+                arrList.unshift('')
+                arrList.push('}')
+                arrList.push('')
+                console.log(arrList);
+
+            })
+            function setdot(targetN, flag) {
+                if (flag === 1) {
+                    for (i = 0; i < targetN.length; i++) {
+                        arrList.push('    ' + targetN[i].nodeName + ' [id=' + '"' + targetN[i].nodeId + '"' + ' label=' + '"' + targetN[i].label + '"' + ']');
+                    }
+                }
+                if (flag === 2) {
+                    for (i = 0; i < targetN.length; i++) {
+                        arrList.push('    ' + targetN[i].prior + ' -> ' + targetN[i].next + ' [id=' + '"' + targetN[i].edgeId + '"' + ' label=' + '"' + targetN[i].label + '"' + ']')
+                    }
+                }
+            }
+
+        });
+
+
+
+    //   这个就是回调地狱啊
+
+
+
+    </script>
+</body>
+
+</html>

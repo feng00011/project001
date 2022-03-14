@@ -1,40 +1,87 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>树组件</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <link rel="stylesheet" href="./assets/lib/layui/css/layui.css">
+
 </head>
 
 <body>
-    <div id="test1"></div>
-    <script src="./assets/lib/layui/layui.js"></script>
-    <script>
-        layui.use('tree', function () {
-            var tree = layui.tree;
-
-            //渲染
-            var inst1 = tree.render({
-                elem: '#test1'  //绑定元素
-                , data: [{
-                    title: '江西' //一级菜单
-                    , children: [{
-                        title: '南昌' //二级菜单
-                        , children: [{
-                            title: '高新区' //三级菜单
-                            //…… //以此类推，可无限层级
-                        }]
-                    }]
-                }, {
-                    title: '陕西' //一级菜单
-                    , children: [{
-                        title: '西安' //二级菜单
-                    }]
-                }]
-            });
-        });
-    </script>
+    <div class="layui-card">
+        <div class="layui-card-header">卡片面板</div>
+        <div class="layui-card-body">
+            点击按钮新增路径
+        </div>
+        <button type="button" class="layui-btn" id="addInputButton">一个标准的按钮</button>
+    </div>
+    <div id="containtInput">
+        <div class="layui-form-item">
+            <div class="layui-col-md3">
+                <label class="layui-form-label">PRIOR</label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input" name="financeDate" id="financeDate" placeholder="输入前一个节点">
+                </div>
+            </div>
+            <div class="layui-col-md3">
+                <label class="layui-form-label">NEXT</label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input" name="foundationDate" id="foundationDate"
+                        placeholder="输入后一个节点">
+                </div>
+            </div>
+            <div class="layui-col-md3">
+                <label class="layui-form-label">LABEL</label>
+                <div class="layui-input-block">
+                    <input type="text" name="region" placeholder="请输入标签名" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-col-md3" >
+                <button type="button" class="layui-btn layui-btn-sm" style="margin-left: 20px;margin-top: 2px;">
+                    <i class="layui-icon">&#xe640;</i>
+                </button>
+            </div>
+        </div>
+        
+    </div>
 </body>
+<script src="./assets/lib/jquery.js"></script>
+<script src="./assets/lib/layui/layui.js"></script>
+<script>
+    $("#addInputButton").click(function () {
+        var str = '<div class="layui-form-item">' +
+            '<div class="layui-col-md3">' +
+            ' <label class="layui-form-label">PRIOR</label>' +
+            '<div class="layui-input-block">' +
+            '<input type="text" class="layui-input" name="financeDate" id="financeDate" placeholder="输入前一个节点">' +
+            '</div>' +
+            '</div>' +
+            '<div class="layui-col-md3">' +
+            '<label class="layui-form-label">NEXT</label>' +
+            '<div class="layui-input-block">' +
+            '<input type="text" class="layui-input" name="foundationDate" id="foundationDate" placeholder="输入后一个节点">' +
+            '</div>' +
+            '</div>' +
+            '<div class="layui-col-md3">' +
+            '<label class="layui-form-label">LABEL</label>' +
+            '<div class="layui-input-block">' +
+            '<input type="text" name="region" placeholder="请输入标签名" autocomplete="off" class="layui-input">' +
+            '</div>' +
+            '<div class="layui-col-md3" >' +
+            '<button type="button" class="layui-btn layui-btn-sm" style="margin-left: 20px;margin-top: 2px;">' +
+            '<i class="layui-icon">&#xe640;</i>' +
+            '</button>' +
+            '</div>' +
+            '</div>' +
+            '</div>'
+
+        $("#containtInput").append(str);
+
+    })
+</script>
+
 
 </html>

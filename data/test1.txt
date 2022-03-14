@@ -1,0 +1,11 @@
+digraph {
+    graph [label="Click on a node or an edge" labelloc="t", fontsize="20.0" tooltip=" "]
+    Node1 [id="NodeId1" label="N1" my1=1]
+    Node2 [id="NodeId2" label="N2" ]
+    Node3 [id="NodeId3" label="N3" ]
+    Node4 [id="NodeId4" label="N4" ]
+    Node1 -> Node2 [id="EdgeId12" label="E12"]
+    Node1 -> Node3 [id="EdgeId13" label="E13"]
+    Node2 -> Node3 [id="EdgeId23" label="E23"]
+    Node3 -> Node4 [id="EdgeId34" label="E34"]
+}
